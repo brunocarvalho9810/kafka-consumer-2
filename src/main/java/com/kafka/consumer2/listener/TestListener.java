@@ -1,5 +1,6 @@
 package com.kafka.consumer2.listener;
 
+import com.kafka.consumer2.model.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,5 +36,14 @@ public class TestListener {
 				partition,
 				metadata.partition(),
 				metadata.offset());
+	}
+
+	/**
+	 * Responsável por receber um objeto do tipo Person do topico "person-topic" e exibir as mensagens por meio de logs
+	 * @author <a href="https://github.com/brunocarvalho9810/"> Bruno Carvalho </a>
+	 */
+	@KafkaListener(topics = "person-topic", groupId = "group-2", containerFactory = "personKafkaListenerContainerFactory")
+	public void listen(Person person) {
+		logger.info("Pessoa: {}", person.toString());
 	}
 }
